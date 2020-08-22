@@ -6,8 +6,12 @@ export const is200 = (res: RefinedResponse<ResponseType>) => res.status === 200;
 export default (
   res: RefinedResponse<ResponseType>,
   additional: Checkers<RefinedResponse<ResponseType>> = {},
-): boolean =>
-  k6Check(res, {
+  tags: object = {},
+): boolean => {
+  const additionalChecks = {
     'status is 200': is200,
     ...additional,
-  });
+  };
+
+  return k6Check(res, additionalChecks, tags);
+};

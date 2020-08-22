@@ -1,7 +1,8 @@
 import { sleep } from 'k6';
 import { Options } from 'k6/options';
 import http from 'k6/http';
-import checkHttpResponse from '../utils/checkHttpResponse';
+import { Counter } from 'k6/metrics';
+import createCounterCheck from '../utils/createCounterCheck';
 
 /**
  * Initialize
@@ -10,6 +11,8 @@ import checkHttpResponse from '../utils/checkHttpResponse';
  * Setup, Teardown, and once per VU
  */
 console.log('init');
+const counter = new Counter('failed_test_cases');
+const check = createCounterCheck(counter);
 
 /**
  * Options
@@ -57,11 +60,11 @@ export const teardown = (data: ReturnType<typeof setup>) => {
  * Receives any data passed along from the setup function
  */
 export default (data: ReturnType<typeof setup>) => {
-  console.log('default');
+  console.log('default', data.url);
 
   const res = http.get(data.url);
 
-  checkHttpResponse(res);
+  check(res);
   sleep(1);
 
   return { message: 'success' };
