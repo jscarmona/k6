@@ -1,0 +1,28 @@
+{
+  "private": true,
+  "name": "k6",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "Javier Carmona <javier.carmona@offerup.com>",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "yarn clean && webpack",
+    "dev": "webpack --watch",
+    "start": "k6 run"
+  },
+  "dependencies": {
+    "@babel/core": "^7.11.4",
+    "@babel/plugin-proposal-class-properties": "^7.10.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-typescript": "^7.10.4",
+    "@types/dotenv-flow": "^3.0.1",
+    "@types/k6": "^0.26.1",
+    "@types/webpack": "^4.41.21",
+    "babel-loader": "^8.1.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
